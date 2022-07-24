@@ -46,10 +46,6 @@ const App = () => {
     const data = await res.json()
 
     setTasks([...tasks, data])
-
-    // const id = Math.floor(Math.random() * 10000) + 1
-    // const newTask = { id, ...task }
-    // setTasks([...tasks, newTask])
   }
 
   // Delete Task
@@ -82,23 +78,27 @@ const App = () => {
       tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task )
     )
   }
-
   return (
     <Router>
       <div className='container'>
-        <Header
-          onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+        <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
         <Routes>
           <Route
             path='/'
             element={
               <>
                 {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? ( <> <h2>Folders With Logs</h2> <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> </>) : ( 'No Logs To Decrypt' )}
+                {tasks.length > 0 ? ( <> <h2>Folder(s) With Log(s)</h2> <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> </>) : ( 'No Logs To Decrypt' )}
               </>
             }
           />
         </Routes>
+      </div>
+      <div className='container'>
+        <h2> Queue</h2>
+        <ul>
+          <li>hello</li>
+        </ul>
       </div>
     </Router>
   )

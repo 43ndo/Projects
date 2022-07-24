@@ -14,7 +14,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 }
 
 Header.defaultProps = {
-  title: 'Log Decryption Tracker',
+  title: 'Wally Log Decryption Tracker',
 }
 
 Header.propTypes = {

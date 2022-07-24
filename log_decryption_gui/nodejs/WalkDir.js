@@ -1,6 +1,8 @@
 const fs = require('fs').promises
 const path = require('path')
 
+var id = 0
+
 async function walkDir(dir, result=[]) {
     const re = new RegExp('.txt$')
     const list = await fs.readdir(dir);
@@ -14,7 +16,8 @@ async function walkDir(dir, result=[]) {
             const absolutePath = path.dirname(path.resolve(itemPath));
             const size= stats.size
             const date = stats.birthtime
-            result.push({ absolutePath, date, size })
+            id++
+            result.push({ id, absolutePath, date, size })
         }
     }
     return result;

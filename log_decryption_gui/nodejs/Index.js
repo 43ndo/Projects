@@ -3,16 +3,58 @@ const express = require('express')
 const fs = require('fs')
 const app = express()
 
+var tasks = []
+
+const cors = require('cors')
+app.use(cors())
+
+/*
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+})
+*/
+
 app.get('/tasks', (req, res) => {
-  const dir = '../../001'
-  wd.walkDir(dir).then(logs => {
-    fs.writeFileSync('../reactjs/db.json', JSON.stringify(logs))
-    res.json(logs)
+  const dir = '/Users/henryvu/Desktop/untitled_folder'
+  wd.walkDir(dir).then(dirs => {
+    fs.writeFileSync('../reactjs/db.json', JSON.stringify(dirs))
+    res.json(dirs)
+    tasks.push(dirs)
   })
 })
 
-const PORT = process.env.PORT || 5000
+app.get('/tasks/:id', (req, res) => {
+  const id = req.params.id
+  const found = tasks.find(task => task.id === id)
+  if(found) {
+    tasks = tasks.filter(task => task.id !== id)
+    res.status(200).json(found)
+  } else {
+    res.status(404).json({ message: 'ID doesn\'t exist' })
+  } 
+})
+
+app.delete('/tasks/:id', (req, res) => {
+  /*
+  const id = req.params.id
+  const deleted = tasks.find(task => task.id === id)
+  if(deleted) {
+    tasks = tasks.filter(task => task.id !== id)
+    res.status(200).json(deleted)
+  } else {
+    res.status(404).json({ message: 'Task doesn\'t exist' })
+  }
+  */
+  let index = tasks.findIndex(task => task.id === req.params.id)
+  todos.splice(index, 1)
+  res.sendStatus(200)
+})
+
+
+const PORT = process.env.PORT || 8080  
 app.listen(PORT, () => {
-  console.log('SERVER STARTED ON PORT '+ PORT)
+  console.log('Server Started on http://localhost:' + PORT)
 })
 

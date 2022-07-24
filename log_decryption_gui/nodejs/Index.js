@@ -3,7 +3,6 @@ const express = require('express')
 const fs = require('fs')
 const app = express()
 
-var tasks = []
 
 const cors = require('cors')
 app.use(cors())
@@ -15,14 +14,15 @@ app.use((req, res, next) => {
   next();
 })
 */
+let tasks = fs.readFileSync('../reactjs/db.json') 
 
 app.get('/tasks', (req, res) => {
   const dir = '/Users/henryvu/Desktop/untitled_folder'
   wd.walkDir(dir).then(dirs => {
     fs.writeFileSync('../reactjs/db.json', JSON.stringify(dirs))
     res.json(dirs)
-    tasks.push(dirs)
   })
+
 })
 
 app.get('/tasks/:id', (req, res) => {
@@ -33,11 +33,10 @@ app.get('/tasks/:id', (req, res) => {
     res.status(200).json(found)
   } else {
     res.status(404).json({ message: 'ID doesn\'t exist' })
-  } 
+  }
 })
 
 app.delete('/tasks/:id', (req, res) => {
-  /*
   const id = req.params.id
   const deleted = tasks.find(task => task.id === id)
   if(deleted) {
@@ -46,10 +45,11 @@ app.delete('/tasks/:id', (req, res) => {
   } else {
     res.status(404).json({ message: 'Task doesn\'t exist' })
   }
-  */
+  /*
   let index = tasks.findIndex(task => task.id === req.params.id)
   todos.splice(index, 1)
   res.sendStatus(200)
+  */
 })
 
 

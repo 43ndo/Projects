@@ -1,7 +1,6 @@
 const fs = require('fs').promises
 const path = require('path')
-
-var id = 0
+var uuid = require('uuid')
 
 async function walkDir(dir, result=[]) {
     const re = new RegExp('.txt$')
@@ -13,12 +12,12 @@ async function walkDir(dir, result=[]) {
             await walkDir(itemPath, result)
         } else if (re.test(item)) {
             //const fileName = path.basename(item, path.extname(item));
+            const id = uuid.v4() 
             const absolutePath = path.dirname(path.resolve(itemPath));
-            const size= stats.size
+            const size = stats.size
             const date = stats.birthtime
-            id++
             result.push({ id, absolutePath, date, size })
-        }
+        }     
     }
     return result;
 }

@@ -7,8 +7,12 @@ const Task = ({ task, onDelete, onToggle }) => {
         {task.absolutePath}{' '}
         <FaTimes style={{ color: 'red', cursor: 'pointer' }} onClick={() => onDelete(task.id)} />
       </h3>
-      <p>Date: {task.date}</p>
-      <p>Size: {task.size}</p>
+      <ul>
+        <li>ID: {task.id}</li>
+        <li>File: {task.fileName}</li>
+        <li>Date: {task.date}</li>
+        <li>Size: {task.size}</li>
+      </ul>
     </div>
   )
 }

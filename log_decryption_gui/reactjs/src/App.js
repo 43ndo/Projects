@@ -87,9 +87,7 @@ const App = () => {
     <Router>
       <div className='container'>
         <Header
-          onAdd={() => setShowAddTask(!showAddTask)}
-          showAdd={showAddTask}
-        />
+          onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
         <Routes>
           <Route
             path='/'

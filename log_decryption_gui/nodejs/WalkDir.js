@@ -11,12 +11,12 @@ async function walkDir(dir, result=[]) {
         if (stats.isDirectory()) {
             await walkDir(itemPath, result)
         } else if (re.test(item)) {
-            //const fileName = path.basename(item, path.extname(item));
             const id = uuid.v4() 
+            const fileName = path.basename(item, path.extname(item));
             const absolutePath = path.dirname(path.resolve(itemPath));
-            const size = stats.size
             const date = stats.birthtime
-            result.push({ id, absolutePath, date, size })
+            const size = stats.size
+            result.push({ id, fileName, absolutePath, date, size })
         }     
     }
     return result;

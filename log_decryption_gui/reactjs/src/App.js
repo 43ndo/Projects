@@ -94,12 +94,6 @@ const App = () => {
           />
         </Routes>
       </div>
-      <div className='container'>
-        <h2> Queue</h2>
-        <ul>
-          <li>hello</li>
-        </ul>
-      </div>
     </Router>
   )
 }
